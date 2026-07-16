@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 func getName() string {
 	name := ""
@@ -40,19 +43,52 @@ func generateSymbolArray(symbols map[string]uint) []string {
 	return symbolArray
 }
 
+func getRandomNumber(min int, max int) int {
+	randomNumber := rand.Intn(max-min+1) + min
+	return randomNumber
+}
+
+func getSpin(reel []string, rows int, cols int) [][]string {
+	results := [][]string{}
+
+	for i := 0; i < rows; i++ {
+		results = append(results, []string{})
+	}
+
+	for col := 0; col < cols; col++ {
+		selected := map[int]bool{}
+		for row := 0; row < rows; row++ {
+			for true {
+				randomIndex := getRandomNumber(0, len(reel)-1)
+				_, exists := selected[randomIndex]
+				if !exists {
+					selected[randomIndex] = true
+					results[row][col] = reel[randomIndex]
+					break
+				}
+			}
+		}
+	}
+	return results
+}
+
 func main() {
 	symbols := map[string]uint{
-		"A": 3,
+		"A": 4,
 		"B": 7,
 		"C": 12,
 		"D": 20,
 	}
-	multipliers := map[string]uint{
-		"A": 20,
-		"B": 10,
-		"C": 5,
-		"D": 2,
-	}
+	//multipliers := map[string]uint{
+	//	"A": 20,
+	//	"B": 10,
+	//	"C": 5,
+	//	"D": 2,
+	//}
+
+	symbolArray := generateSymbolArray(symbols)
+	fmt.Println(symbolArray)
+
 	balance := uint(200)
 	getName()
 
