@@ -30,6 +30,16 @@ func getBet(balance uint) uint {
 	return bet
 }
 
+func generateSymbolArray(symbols map[string]uint) []string {
+	symbolArray := []string{}
+	for symbol, count := range symbols {
+		for i := uint(0); i < count; i++ {
+			symbolArray = append(symbolArray, symbol)
+		}
+	}
+	return symbolArray
+}
+
 func main() {
 	symbols := map[string]uint{
 		"A": 3,
