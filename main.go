@@ -63,7 +63,7 @@ func getSpin(reel []string, rows int, cols int) [][]string {
 				_, exists := selected[randomIndex]
 				if !exists {
 					selected[randomIndex] = true
-					results[row][col] = reel[randomIndex]
+					results[row] = append(results[row], reel[randomIndex])
 					break
 				}
 			}
@@ -87,7 +87,8 @@ func main() {
 	//}
 
 	symbolArray := generateSymbolArray(symbols)
-	fmt.Println(symbolArray)
+	spin := getSpin(symbolArray, 3, 3)
+	fmt.Println(spin)
 
 	balance := uint(200)
 	getName()
